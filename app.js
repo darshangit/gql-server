@@ -9,7 +9,7 @@ const app = express();
 //allow cross-origin requests
 app.use(cors())
 
-mongoose.connect('mongodb://dash:dash123@ds261040.mlab.com:61040/gql-ninja',{ useNewUrlParser: true })
+mongoose.connect(process.env.MONGODB_URI,{ useNewUrlParser: true })
 mongoose.connection.once('open', () => {
     console.log('connected to database');
 });
@@ -19,6 +19,4 @@ app.use('/graphql',graphqlHTTP({
     graphiql: true
 }));
 
-app.listen(8080, () => {
-    console.log('Now listening for request on port 8080');
-})
+app.listen(process.env.PORT || 8080);
